@@ -46,9 +46,6 @@
                     <li class="nav-item {{ request()->is('customer') ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('customer.index')}}">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('customer.produk')}}">Products</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,9 +94,6 @@
         <ul class="list-unstyled components links">
             <li class="{{ request()->is('customer') ? 'active' : '' }}">
                 <a href="{{route('customer.index')}}"><i class="bx bx-home mr-3"></i> Home</a>
-            </li>
-            <li>
-                <a href="#"><i class="bx bx-carousel mr-3"></i> Products</a>
             </li>
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
