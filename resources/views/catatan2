@@ -1,0 +1,94 @@
+@extends('dashboard.layout')
+
+@section('content')
+  
+<div class="section-header">
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+              <div class="breadcrumb-item"><a href="/admin/penjualan/produk">Produk</a></div>
+              <div class="breadcrumb-item">Data Produk</div>
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Data Produk</h4>
+                    @include('dashboard.flash')
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="table-1">
+                          <thead>   
+                        @if(!empty($data) && $data->count())                              
+                              <tr>
+                                <th class="text-center">
+                                  No
+                                </th>
+                                <th>Nama Kategori</th>
+                                <th>SKU</th>
+                                <th>Nama Produk</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Tindakan</th>
+                              </tr>
+                          </thead>
+
+                          <tbody>
+                          @foreach($data as $value)
+                                  <tr data-entry-id="{{ $value->id_produk }}">
+                      
+                                  <td class="text-center">{{$loop->iteration}}</td>
+                                  <td>{{ $value->Kategori->nama_kategori }}</td>
+                                  <td>{{ $value->sku_produk }}</td>
+                                  <td>{{ $value->nama_produk }}</td>
+                                  <td>{{ $value->harga_produk }}</td>
+                                  <td>{{ $value->stok_produk }}</td>
+                                  <td>
+                                    <a href="/admin/penjualan/produk/show/{{ $value -> id_produk }}"> <i class="fas fa-info-circle ml-2 mt-2"></i></a>
+                                    <a href = "/admin/penjualan/produk/edit/{{ $value -> id_produk }}" class="fas fa-edit ml-2 mt-2"></a>
+                                    <a href="/admin/penjualan/produk/destroy/{{ $value -> id_produk }}" class="fas fa-trash ml-2 mt-2" onclick="return confirm('Yakin Hapus?')"></a>
+                                    
+                                  </td>
+                          
+                                </tr>
+                              @endforeach
+
+                              @else
+                                <tr>
+                                    <td colspan="5"> Data Tidak Ada </td>
+                                </tr>
+                              @endif
+                          </tbody>
+                      </table>
+                    </div>
+                 </div>
+              </div>
+
+@stop
+
+<div class="modal fade" id="modalHapusBarang{{ $value -> id_produk }}" tabindex="-1" aria-labelledby="modalHapusBarang" aria-hidden="true">
+    <div class="modal-dialog m-100" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ $value->nama_produk}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <p>Yakin ingin menghapus produk ini?</p>
+            </div>
+            <div class="modal-footer">
+            <form action="/admin/penjualan/produk/destroy/{{ $value->id_produk }}" method="post">
+                @csrf
+                @method('delete')
+                <a type="button" class="btn btn-danger" href ="/admin/penjualan/produk/destroy/{{ $value -> id_produk }}">Hapus</a>
+            </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+     </div>
+</div>
+          
