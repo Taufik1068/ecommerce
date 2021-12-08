@@ -278,7 +278,7 @@
         <input type="hidden" name="price[]" value="{{$cart->price}}">
         <input type="hidden" name="qty[]" value="{{$cart->qty}}">
         <div class="col-lg-2 col-3">
-            <img src="{{asset('assets/images/'. $cart->model->gambar_produk)}}" class="img-fluid">
+            <img src="{{asset('gambar_produk/'. $cart->model->gambar_produk)}}" class="img-fluid">
         </div>
         <div class="col-lg-5 col-6">
             <h5>{{$cart->model->nama_produk}}</h5>

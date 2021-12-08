@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembayaranTable extends Migration
+class CreateProdukPemasoksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreatePembayaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
-            $table->bigIncrements('id_pembayaran');
-            $table->unsignedBigInteger('id_pesanan');
+        Schema::create('produk_pemasoks', function (Blueprint $table) {
+            $table->bigIncrements('id_produk_pemasok');
+            $table->unsignedBigInteger('id_pemasok');
             $table->unsignedBigInteger('id_user');
-            $table->string('kode_pembayaran');
-            $table->string('harga_pengiriman');
+            $table->date('tanggal_beli');
+            $table->string('nama_produk');
+            $table->string('harga_satuan');
             $table->string('total_pembayaran');
-            $table->foreign('id_pesanan')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
+            $table->integer('jumlah_pembayaran');
+            $table->foreign('id_pemasok')->references('id_pemasok')->on('pemasoks')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -33,6 +35,6 @@ class CreatePembayaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayaran');
+        Schema::dropIfExists('produk_pemasoks');
     }
 }

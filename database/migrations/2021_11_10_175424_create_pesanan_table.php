@@ -15,7 +15,8 @@ class CreatePesananTable extends Migration
     {
         Schema::create('pesanans', function (Blueprint $table) {
             $table->bigIncrements('id_pesanan');
-            $table->integer('id_produk');
+            $table->unsignedBigInteger('id_produk');
+            $table->unsignedBigInteger('id_user');
             $table->string('nama_pembeli');
             $table->text('alamat_pembeli')->nullable();
             $table->string('telp_pembeli');
@@ -24,6 +25,10 @@ class CreatePesananTable extends Migration
             $table->string('jenis_pembayaran');
             $table->string('harga_beli');
             $table->string('status');
+            $table->foreign('id_produk')->references('id_produk')->on('produks')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+
+
             $table->timestamps();
         });
     }

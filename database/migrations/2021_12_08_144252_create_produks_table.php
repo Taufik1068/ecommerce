@@ -15,7 +15,8 @@ class CreateProduksTable extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->bigIncrements('id_produk');
-            $table->integer('id_kategori');
+            $table->unsignedBigInteger('id_kategori');
+            $table->unsignedBigInteger('id_user');
             $table->string('sku_produk');
             $table->string('nama_produk');
             $table->string('slug');
@@ -27,7 +28,9 @@ class CreateProduksTable extends Migration
             $table->integer('lebar_produk');
             $table->integer('tinggi_produk');
             $table->integer('berat_produk');
-            $table->enum('status', ['Pendik', 'Proses', 'Selesai']);
+            $table->enum('status', ['Pending', 'Proses', 'Selesai']);
+            $table->foreign('id_kategori')->references('id_kategori')->on('kategoris')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -15,9 +15,11 @@ class CreateKategorisTable extends Migration
     {
         Schema::create('kategoris', function (Blueprint $table) {
             $table->bigIncrements('id_kategori');
+            $table->unsignedBigInteger('id_user');
             $table->string('nama_kategori');
             $table->string('slug');
             $table->text('deskripsi_kategori');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

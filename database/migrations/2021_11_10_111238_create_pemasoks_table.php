@@ -15,10 +15,13 @@ class CreatePemasoksTable extends Migration
     {
         Schema::create('pemasoks', function (Blueprint $table) {
             $table->bigIncrements('id_pemasok');
+            $table->unsignedBigInteger('id_user');
             $table->string('nama_pemasok');
             $table->integer('telp_pemasok');
             $table->string('alamat_pemasok');
             $table->string('kode_pemasok');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembayaranTable extends Migration
+class CreateNamaTokosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreatePembayaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
-            $table->bigIncrements('id_pembayaran');
-            $table->unsignedBigInteger('id_pesanan');
+        Schema::create('nama_tokos', function (Blueprint $table) {
+            $table->bigIncrements('id_toko');
             $table->unsignedBigInteger('id_user');
-            $table->string('kode_pembayaran');
-            $table->string('harga_pengiriman');
-            $table->string('total_pembayaran');
-            $table->foreign('id_pesanan')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
+            $table->string('nama_toko');
+            $table->text('alamat_toko');
+            $table->string('telp_toko');
+            $table->string('website');
+            $table->string('instagram');
+            $table->string('facebook');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -33,6 +34,6 @@ class CreatePembayaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayaran');
+        Schema::dropIfExists('nama_tokos');
     }
 }

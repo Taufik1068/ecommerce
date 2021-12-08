@@ -18,6 +18,9 @@ class CreatePesananProduksTable extends Migration
             $table->unsignedBigInteger('id_pesanan');
             $table->unsignedBigInteger('id_produk');
             $table->string('jumlah');
+            $table->foreign('id_pesanan')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
+            $table->foreign('id_produk')->references('id_produk')->on('produks')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

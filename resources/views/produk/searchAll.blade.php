@@ -87,7 +87,7 @@
         <a href="{{route('produk.detail', ['id_toko' => $produk->toko->id_toko, 'id_produk' => $produk->id_produk])}}" style="text-decoration: none">
             <div class="card">
                 <div class="card-body">
-                    <img src="{{asset('assets/images/'. $produk->gambar_produk)}}" class="img-fluid">
+                    <img src="{{asset('gambar_produk/'. $produk->gambar_produk)}}" class="img-fluid">
                     <h6>{{$produk->nama_produk}}</h6>
                     <p style="color: black">Rp. {{number_format($produk->harga_produk,0,',','.')}}</p>
                 </div>

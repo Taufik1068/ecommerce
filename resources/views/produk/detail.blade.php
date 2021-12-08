@@ -136,7 +136,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img src="{{asset('assets/images/'. $n->gambar_produk)}}" class="img-fluid">
+                        <img src="{{asset('gambar_produk/'. $n->gambar_produk)}}" class="img-fluid">
                     </div>
                     <div class="col-lg-9">
                         <h5>Keterangan : </h5>

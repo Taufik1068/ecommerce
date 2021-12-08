@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\User;
 use Auth;
 use Session;
+use Str;
 
 class KategoriController extends Controller
 {
@@ -30,7 +31,15 @@ class KategoriController extends Controller
 
     public function store(Request $request)
     {
-        Kategori::create($request->all());
+        // Kategori::create($request->all());
+
+        // Update Category
+        Kategori::create([
+            'id_user' => auth()->user()->id,
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => Str::slug($request->nama_kategori),
+            'deskripsi_kategori' => $request->deskripsi_kategori,
+        ]);
 
         return redirect('admin/penjualan/kategori')->with('sukses', 'Kategori Berhasil di Tambahkan');
     }
@@ -60,15 +69,14 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama_kategori' => 'required',
             'id_user' => 'required',
-            'slug' => 'required',
             'deskripsi_kategori' => 'required'
         ]);
 
         // update data books
         $data = Kategori::find($id_kategori);
         $data->nama_kategori = $request->nama_kategori;
-        $data->id_user = $request->id_user;
-        $data->slug = $request->slug;
+        $data->id_user = auth()->user()->id;
+        $data->slug = Str::slug($request->nama_kategori);
         $data->deskripsi_kategori = $request->deskripsi_kategori;
 
         $data->save();
