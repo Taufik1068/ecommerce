@@ -43,6 +43,7 @@ class ProdukController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required',
             'stok_produk' => 'required',
+            'slug' => 'required',
             'gambar_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi_produk' => 'required',
             'panjang_produk' => 'required',
@@ -68,7 +69,7 @@ class ProdukController extends Controller
             'id_user' => auth()->user()->id,
             'sku_produk' => $request->sku_produk,
             'nama_produk' => $request->nama_produk,
-            'slug' => Str::slug($request->nama_produk),
+            'slug' => $request->slug,
             'harga_produk' => $request->harga_produk,
             'stok_produk' => $request->stok_produk,
             'deskripsi_produk' => $request->deskripsi_produk,
@@ -116,6 +117,7 @@ class ProdukController extends Controller
             'sku_produk' => 'required',
             'nama_produk' => 'required',
             'harga_produk' => 'required',
+            'slug' => 'required',
             'stok_produk' => 'required',
             'gambar_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi_produk' => 'required',
@@ -143,7 +145,7 @@ class ProdukController extends Controller
         $data->id_user = $request->id_user;
         $data->sku_produk = $request->sku_produk;
         $data->nama_produk = $request->nama_produk;
-        $data->slug = Str::slug($request->nama_produk);
+        $data->slug = $request->slug;
         $data->harga_produk = $request->harga_produk;
         $data->stok_produk = $request->stok_produk;
         $data->deskripsi_produk = $request->deskripsi_produk;

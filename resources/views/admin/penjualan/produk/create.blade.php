@@ -94,6 +94,20 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="slug">Slug</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <i class="fas fa-box"></i>
+                                                                </div>
+                                                            </div>
+                                                                <input type="text" class="form-control" id="slug" name="slug" required="require" placeholder ="Masukkan Nama Slug">
+                                                        </div>
+                                                </div>
+                                            </div>
+
 
                                             <div class="col-sm-6">
                                                 <div class="form-group {{ $errors->has('harga_produk') ? 'has-error' : '' }}">

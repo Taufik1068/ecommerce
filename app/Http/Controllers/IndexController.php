@@ -89,6 +89,19 @@ class IndexController extends Controller
         $pesanan->jenis_pengiriman = $request->pilihan_pengiriman;
         $pesanan->alamat_pembeli = $request->alamat;
         $pesanan->jenis_pembayaran = $request->pembayaran;
+        $pesanan->status = 'Pending';
+        if ($request->pilihan_pengiriman == "Diantar" && $request->donasi == "donasi") {
+            $request->validate([
+                'alamat' => 'required',
+            ]);
+            $pesanan->total = Cart::instance('checkout_' . $id_toko)->subtotal() + $ongkir + $donasi;
+        } elseif ($request->pilihan_pengiriman == "Datang Ketempat" && $request->donasi == "donasi") {
+            $pesanan->total = Cart::instance('checkout_' . $id_toko)->subtotal() + $donasi;
+        } elseif ($request->pilihan_pengiriman == "Diantar") {
+            $pesanan->total = Cart::instance('checkout_' . $id_toko)->subtotal() + 10000;
+        } else {
+            $pesanan->total = Cart::instance('checkout_' . $id_toko)->subtotal();
+        }
         $pesanan->save();
 
         // Pembayaran
@@ -96,8 +109,8 @@ class IndexController extends Controller
         $pembayaran->id_pesanan = $pesanan->id_pesanan;
         $pembayaran->id_user = $id_toko;
         $pembayaran->harga_pengiriman = 10000;
-        $pembayaran->kode_pesanan = $random;
-        $pembayaran->tanggal_pengiriman = \Carbon\Carbon::now();
+        $pembayaran->kode_pembayaran = $random;
+        // $pembayaran->tanggal_pengiriman = \Carbon\Carbon::now();
         if ($request->pilihan_pengiriman == "Diantar" && $request->donasi == "donasi") {
             $request->validate([
                 'alamat' => 'required',
@@ -116,6 +129,7 @@ class IndexController extends Controller
                 'id_pesanan' => $pesanan->id_pesanan,
                 'id_produk' => $checkout->model->id_produk,
                 'jumlah' => $checkout->qty,
+                'harga_beli' => $checkout->subtotal,
             ]);
 
             Cart::instance('cart_' . $id_toko)->remove($checkout->options->rowId);
@@ -147,6 +161,19 @@ class IndexController extends Controller
         $pesanan->jenis_pengiriman = $request->pilihan_pengiriman;
         $pesanan->alamat_pembeli = $request->alamat;
         $pesanan->jenis_pembayaran = $request->pembayaran;
+        $pesanan->status = 'Pending';
+        if ($request->pilihan_pengiriman == "Diantar" && $request->donasi == "donasi") {
+            $request->validate([
+                'alamat' => 'required',
+            ]);
+            $pesanan->total = Cart::instance('buyNow_' . $id_toko)->subtotal() + $ongkir + $donasi;
+        } elseif ($request->pilihan_pengiriman == "Datang Ketempat" && $request->donasi == "donasi") {
+            $pesanan->total = Cart::instance('buyNow_' . $id_toko)->subtotal() + $donasi;
+        } elseif ($request->pilihan_pengiriman == "Diantar") {
+            $pesanan->total = Cart::instance('buyNow_' . $id_toko)->subtotal() + 10000;
+        } else {
+            $pesanan->total = Cart::instance('buyNow_' . $id_toko)->subtotal();
+        }
         $pesanan->save();
 
         // Pembayaran
@@ -154,8 +181,8 @@ class IndexController extends Controller
         $pembayaran->id_pesanan = $pesanan->id_pesanan;
         $pembayaran->id_user = $id_toko;
         $pembayaran->harga_pengiriman = 10000;
-        $pembayaran->kode_pesanan = $random;
-        $pembayaran->tanggal_pengiriman = \Carbon\Carbon::now();
+        $pembayaran->kode_pembayaran = $random;
+        // $pembayaran->tanggal_pengiriman = \Carbon\Carbon::now();
         if ($request->pilihan_pengiriman == "Diantar" && $request->donasi == "donasi") {
             $request->validate([
                 'alamat' => 'required',
@@ -174,6 +201,7 @@ class IndexController extends Controller
                 'id_pesanan' => $pesanan->id_pesanan,
                 'id_produk' => $checkout->model->id_produk,
                 'jumlah' => $checkout->qty,
+                'harga_beli' => $checkout->subtotal,
             ]);
         }
 

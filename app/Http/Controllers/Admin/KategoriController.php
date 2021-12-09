@@ -37,7 +37,7 @@ class KategoriController extends Controller
         Kategori::create([
             'id_user' => auth()->user()->id,
             'nama_kategori' => $request->nama_kategori,
-            'slug' => Str::slug($request->nama_kategori),
+            'slug' => $request->slug,
             'deskripsi_kategori' => $request->deskripsi_kategori,
         ]);
 
@@ -68,6 +68,7 @@ class KategoriController extends Controller
         // untuk validasi form
         $this->validate($request, [
             'nama_kategori' => 'required',
+            'slug' => 'required',
             'id_user' => 'required',
             'deskripsi_kategori' => 'required'
         ]);
@@ -76,7 +77,7 @@ class KategoriController extends Controller
         $data = Kategori::find($id_kategori);
         $data->nama_kategori = $request->nama_kategori;
         $data->id_user = auth()->user()->id;
-        $data->slug = Str::slug($request->nama_kategori);
+        $data->slug = $request->slug;
         $data->deskripsi_kategori = $request->deskripsi_kategori;
 
         $data->save();
