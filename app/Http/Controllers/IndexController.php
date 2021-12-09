@@ -138,7 +138,9 @@ class IndexController extends Controller
 
         Cart::instance('checkout_' . $id_toko)->destroy();
 
-        return redirect()->route('checkout.done', $id_toko)->with('random', $random);
+        $n = Namatoko::where('id_toko', $id_toko)->first();
+
+        return redirect()->route('checkout.done', $id_toko)->with(['random' => $random])->with(['n' => $n]);
     }
 
     public function buyNowStore(Request $request, $id_toko)
@@ -208,7 +210,9 @@ class IndexController extends Controller
 
         Cart::instance('buyNow_' . $id_toko)->destroy();
 
-        return redirect()->route('checkout.done', $id_toko)->with('random', $random);
+        $n = Namatoko::where('id_toko', $id_toko)->first();
+
+        return redirect()->route('checkout.done', $id_toko)->with('random', $random)->with('n', $n);
     }
 
     public  function generateRandomString($length = 20)
