@@ -83,11 +83,11 @@
 
 <div class="row">
     @forelse ($p as $produk)
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6 mb-3">
         <a href="{{route('produk.detail', ['id_toko' => $produk->toko->id_toko, 'id_produk' => $produk->id_produk])}}" style="text-decoration: none">
             <div class="card">
                 <div class="card-body">
-                    <img src="{{asset('gambar_produk/'. $produk->gambar_produk)}}" class="img-fluid">
+                    <img src="{{asset('gambar_produk/'. $produk->gambar_produk)}}" class="img-fluid img-resp">
                     <h6>{{$produk->nama_produk}}</h6>
                     <p style="color: black">Rp. {{number_format($produk->harga_produk,0,',','.')}}</p>
                 </div>

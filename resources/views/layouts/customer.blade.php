@@ -11,8 +11,18 @@
     <style>
         html,
         body {
-            height: 100%;
+            height: 70%;
             margin: 0;
+        }
+
+        .card .card-body .img-resp {
+            height: 200px;
+            width: 200px;
+            max-width: 200px;
+            max-height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
     </style>
